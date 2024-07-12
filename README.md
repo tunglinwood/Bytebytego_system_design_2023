@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/88ab4fdf-9b55-48ea-b417-a84a0e8a5ecc)![image](https://github.com/user-attachments/assets/2e44dc79-cfd6-49fd-bf94-2daf51fb4c0b)# Bytebytego_system_design_2023
 
 # 解释九种 API 测试类型  Explaining 9 types of API testing
 ![image](https://github.com/user-attachments/assets/67059ebe-2789-491e-a4f1-0b06c41f2e3c)
