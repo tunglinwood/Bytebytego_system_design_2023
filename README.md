@@ -1780,7 +1780,7 @@ JWT的主要优点是它是无状态的，服务器不需要存储会话信息�
 ![image](https://github.com/user-attachments/assets/6bff3de6-ae2c-4fa9-b58f-bc7a4a39e854)
 
 # System Design Blueprint: The Ultimate Guide
-![image](https://github.com/user-attachments/assets/9ecfe0d6-ad03-4981-bbde-ccd55bceedcf)
+<img width="640" alt="image" src="https://github.com/user-attachments/assets/202b6617-c66f-4fbe-90da-6bd5fb81b0f5">
 
 # Key Concepts to Understand Database Sharding
 ![image](https://github.com/user-attachments/assets/6427df44-78ae-413a-950b-36cc1bd2ab7c)
