@@ -437,3 +437,308 @@ REST API 的认证方法多种多样，每种方法都有其独特的优点和�
 - **API 密钥**适用于简单、快速集成的应用。
 - **HMAC**适用于需要高消息完整性和真实性的应用。
 - **OpenID Connect**适用于需要统一用户身份认证的应用。
+
+
+# Linux 启动过程图解Linux Boot Process Illustrated
+
+#### 概述
+
+Linux 的启动过程是从系统加电到操作系统内核完成初始化并开始运行用户空间程序的整个过程。它可以分为以下主要阶段：
+
+1. BIOS/UEFI 初始化
+2. 引导加载程序（Bootloader）
+3. 内核引导
+4. 初始化系统（Init System）
+
+#### 详细流程图
+![image](https://github.com/user-attachments/assets/d11b0f5b-31e7-44e3-8675-afd7dacb1e30)
+
+```
++--------------------------------+
+|           开机加电 (Power On)         |
++--------------------------------+
+                |
+                v
++--------------------------------+
+|       BIOS/UEFI 初始化        |
+|  (POST，自检，加载引导加载程序)     |
++--------------------------------+
+                |
+                v
++--------------------------------+
+|        引导加载程序 (Bootloader)     |
+|  (如 GRUB, LILO)                |
++--------------------------------+
+                |
+                v
++--------------------------------+
+|            内核加载 (Kernel Loading)  |
+|  (解压内核，启动内核)                |
++--------------------------------+
+                |
+                v
++--------------------------------+
+|          内核初始化 (Kernel Initialization) |
+|  (加载驱动程序，挂载根文件系统)        |
++--------------------------------+
+                |
+                v
++--------------------------------+
+|        初始化系统 (Init System)        |
+|  (如 systemd, SysVinit)            |
++--------------------------------+
+                |
+                v
++--------------------------------+
+|         用户空间初始化          |
+|   (User Space Initialization)  |
+|  (启动用户空间进程，进入登录界面) |
++--------------------------------+
+```
+
+#### 详细步骤
+
+1. **开机加电 (Power On)**
+    - 计算机被加电，电源开始供应电力，硬件初始化。
+
+2. **BIOS/UEFI 初始化**
+    - **BIOS（Basic Input/Output System）** 或 **UEFI（Unified Extensible Firmware Interface）** 执行自检（POST，Power-On Self Test）。
+    - 初始化硬件组件（如 CPU、内存、硬盘等）。
+    - 查找引导设备，并加载引导加载程序到内存中。
+
+3. **引导加载程序 (Bootloader)**
+    - 常见的引导加载程序有 GRUB（GRand Unified Bootloader）和 LILO（Linux Loader）。
+    - 显示引导菜单，允许用户选择不同的内核或操作系统。
+    - 将选定的内核加载到内存中，并将控制权移交给内核。
+
+4. **内核加载 (Kernel Loading)**
+    - 内核被解压缩并加载到内存中。
+    - 内核开始执行，初始化内存管理、进程管理、文件系统等核心功能。
+
+5. **内核初始化 (Kernel Initialization)**
+    - 内核启动初始的系统进程（如 `init`）。
+    - 加载必要的驱动程序，检测并初始化所有硬件。
+    - 挂载根文件系统（通常是 `/` 文件系统）。
+
+6. **初始化系统 (Init System)**
+    - 初始化系统是用户空间的第一个进程，PID 为 1。
+    - 常见的初始化系统有 `systemd` 和 `SysVinit`。
+    - 初始化系统根据配置文件（如 `/etc/inittab` 或 `systemd` 的单元文件）启动各种系统服务和守护进程。
+
+7. **用户空间初始化 (User Space Initialization)**
+    - 初始化系统启动各种用户空间进程和服务，如网络服务、数据库服务等。
+    - 最后，启动登录界面（如 `getty` 提供的终端登录界面或图形登录界面）。
+
+### 关键组件解释
+
+- **BIOS/UEFI**: 基本输入输出系统，负责硬件初始化和引导加载程序的加载。
+- **引导加载程序**: 负责加载内核，并将控制权移交给内核。
+- **内核**: 操作系统的核心，负责系统资源管理和硬件抽象。
+- **初始化系统 (Init System)**: 第一个用户空间进程，负责启动其他系统服务和守护进程。
+- **用户空间**: 运行应用程序和服务的环境。
+
+### 示例图
+
+```plaintext
+Power On
+   |
+   v
++--------------------+
+| BIOS/UEFI          |
++--------------------+
+   |
+   v
++--------------------+
+| Bootloader         |
+| (GRUB, LILO, etc.) |
++--------------------+
+   |
+   v
++--------------------+
+| Kernel             |
+| (Linux)            |
++--------------------+
+   |
+   v
++--------------------+
+| Init System        |
+| (systemd, SysVinit)|
++--------------------+
+   |
+   v
++--------------------+
+| User Space         |
+| Initialization     |
++--------------------+
+   |
+   v
++--------------------+
+| Login Prompt       |
++--------------------+
+```
+
+# SQL 联接 (SQL Joins) 工作原理 How do SQL Joins Work?
+
+![image](https://github.com/user-attachments/assets/b2d38dbe-9f84-4f19-8bf6-a544259f563c)
+
+### SQL 联接 (SQL Joins) 工作原理
+
+SQL 联接（Join）用于在关系数据库中组合来自两个或多个表的数据。不同类型的联接可以根据需要选择和组合记录。以下是常见的 SQL 联接类型及其工作原理。
+
+#### 1. 内联接 (INNER JOIN)
+
+**定义**: 只返回两个表中满足联接条件的匹配行。
+
+**示例**:
+```sql
+SELECT A.column1, B.column2
+FROM TableA A
+INNER JOIN TableB B
+ON A.common_column = B.common_column;
+```
+
+**解释**: 这个查询会返回 `TableA` 和 `TableB` 中所有 `common_column` 相等的行。
+
+```plaintext
+TableA:
++------+--------------+
+| ID   | Name         |
++------+--------------+
+| 1    | Alice        |
+| 2    | Bob          |
+| 3    | Charlie      |
++------+--------------+
+
+TableB:
++------+-------------+
+| ID   | Department  |
++------+-------------+
+| 1    | HR          |
+| 2    | IT          |
+| 4    | Finance     |
++------+-------------+
+
+Result (INNER JOIN on ID):
++------+---------+
+| Name | Department |
++------+---------+
+| Alice| HR      |
+| Bob  | IT      |
++------+---------+
+```
+
+#### 2. 左外联接 (LEFT JOIN 或 LEFT OUTER JOIN)
+
+**定义**: 返回左表中所有行以及右表中满足联接条件的行；如果右表中没有匹配，则结果中包含空值（NULL）。
+
+**示例**:
+```sql
+SELECT A.column1, B.column2
+FROM TableA A
+LEFT JOIN TableB B
+ON A.common_column = B.common_column;
+```
+
+**解释**: 这个查询会返回 `TableA` 中所有的行，即使在 `TableB` 中没有匹配的行。
+
+```plaintext
+Result (LEFT JOIN on ID):
++--------+---------+
+| Name   | Department |
++--------+---------+
+| Alice  | HR      |
+| Bob    | IT      |
+| Charlie| NULL    |
++--------+---------+
+```
+
+#### 3. 右外联接 (RIGHT JOIN 或 RIGHT OUTER JOIN)
+
+**定义**: 返回右表中所有行以及左表中满足联接条件的行；如果左表中没有匹配，则结果中包含空值（NULL）。
+
+**示例**:
+```sql
+SELECT A.column1, B.column2
+FROM TableA A
+RIGHT JOIN TableB B
+ON A.common_column = B.common_column;
+```
+
+**解释**: 这个查询会返回 `TableB` 中所有的行，即使在 `TableA` 中没有匹配的行。
+
+```plaintext
+Result (RIGHT JOIN on ID):
++--------+---------+
+| Name   | Department |
++--------+---------+
+| Alice  | HR      |
+| Bob    | IT      |
+| NULL   | Finance |
++--------+---------+
+```
+
+#### 4. 全外联接 (FULL JOIN 或 FULL OUTER JOIN)
+
+**定义**: 返回两个表中所有的行，如果某一表中没有匹配则包含空值（NULL）。
+
+**示例**:
+```sql
+SELECT A.column1, B.column2
+FROM TableA A
+FULL OUTER JOIN TableB B
+ON A.common_column = B.common_column;
+```
+
+**解释**: 这个查询会返回 `TableA` 和 `TableB` 中所有的行，如果没有匹配则结果中包含空值。
+
+```plaintext
+Result (FULL OUTER JOIN on ID):
++--------+---------+
+| Name   | Department |
++--------+---------+
+| Alice  | HR      |
+| Bob    | IT      |
+| Charlie| NULL    |
+| NULL   | Finance |
++--------+---------+
+```
+
+#### 5. 交叉联接 (CROSS JOIN)
+
+**定义**: 返回两个表的笛卡尔积（即每个行的所有组合）。
+
+**示例**:
+```sql
+SELECT A.column1, B.column2
+FROM TableA A
+CROSS JOIN TableB B;
+```
+
+**解释**: 这个查询会返回 `TableA` 中每一行和 `TableB` 中每一行的所有组合。
+
+```plaintext
+Result (CROSS JOIN):
++--------+---------+
+| Name   | Department |
++--------+---------+
+| Alice  | HR      |
+| Alice  | IT      |
+| Alice  | Finance |
+| Bob    | HR      |
+| Bob    | IT      |
+| Bob    | Finance |
+| Charlie| HR      |
+| Charlie| IT      |
+| Charlie| Finance |
++--------+---------+
+```
+
+### 总结
+
+SQL 联接允许我们从多个表中获取和组合数据。选择适当的联接类型取决于具体的需求和数据关系：
+
+- **INNER JOIN**: 只取匹配的行。
+- **LEFT JOIN**: 取左表的所有行，右表中没有匹配则填充 NULL。
+- **RIGHT JOIN**: 取右表的所有行，左表中没有匹配则填充 NULL。
+- **FULL OUTER JOIN**: 取两表的所有行，没有匹配则填充 NULL。
+- **CROSS JOIN**: 取两个表的所有组合。
